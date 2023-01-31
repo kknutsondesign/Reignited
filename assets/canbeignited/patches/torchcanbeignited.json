@@ -1,0 +1,10 @@
+[
+  {
+    file: "game:blocktypes/wood/torch.json",
+    op: "add",
+    path: "/behaviorsbyType/",
+    value: {
+      "*-extinct-*": [ { name: "CanBeIgnited", properties: {auto: true}} ]
+    }
+  }
+]

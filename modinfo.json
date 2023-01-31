@@ -1,0 +1,17 @@
+{
+  "type": "code",
+  "name": "Reignited",
+  "modid": "canbeignited",
+  "version": "1.0.0",
+  "iconpath": "modicon.png",
+
+  "description": "Allows you to light extinguished torches from many sources. Also modder utilites.",
+  "authors": [ "Soggylithe" ],
+  "dependencies": {
+    "game": "1.17.10"
+  },
+
+  "Side": "Universal",
+  "RequiredOnClient": true,
+  "RequiredOnServer": true
+}
