@@ -2,7 +2,7 @@
   "type": "code",
   "name": "Reignited",
   "modid": "canbeignited",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "iconpath": "modicon.png",
 
   "description": "Allows you to light extinguished torches from many sources. Also modder utilites.",

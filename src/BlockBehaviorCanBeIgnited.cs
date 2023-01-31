@@ -66,7 +66,7 @@ namespace editjournal.src
             EntityPlayer entityPlayer = byEntity as EntityPlayer;
             IPlayer byPlayer = (entityPlayer != null) ? entityPlayer.Player : null;
 
-            if (!byEntity.Controls.ShiftKey) 
+            if (!byEntity.Controls.Sneak) 
             {
                 return;
             }
@@ -128,12 +128,11 @@ namespace editjournal.src
 
             if (blockSel != null && byEntity.World.Side == EnumAppSide.Server)
             {
-                if (!WillLight(byEntity, blockSel, entitySel))
-                    return;
-                
                 if (byPlayer.InventoryManager.ActiveHotbarSlot == null)
                     return;
 
+                if (!WillLight(byEntity, blockSel, entitySel))
+                    return;
 
                 int previousItemCount = byPlayer.InventoryManager.ActiveHotbarSlot.StackSize;
                 byPlayer.InventoryManager.ActiveHotbarSlot.TakeOutWhole();
