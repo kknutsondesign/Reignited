@@ -148,7 +148,11 @@ namespace editjournal.src
         {
             //The selected block is a torch
             Block block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
-            if (block.Code.FirstCodePart() == "torch")
+            if (block.Code.FirstCodePart() == "torch" && block.FirstCodePart(2) == "lit")
+                return true;
+
+            //The seletect block is a torch holder thats filled
+            if (block.Code.FirstCodePart() == "torchholder" && block.FirstCodePart(2) == "filled")
                 return true;
 
             //A BlockEntity implementing the IHeatSource interface
