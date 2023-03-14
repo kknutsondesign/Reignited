@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45A07C89-BB34-4790-9864-8B427591391B}</ProjectGuid>
+    <ProjectGuid>{0C9D5CB8-BC10-4FDB-BA28-CD625AEFC6F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>canbeignited</RootNamespace>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\canbeignited\</OutputPath>
+    <OutputPath>$(ProjectDir)\bin</OutputPath>
     <IntermediateOutputPath>..\..\obj\Debug\canbeignited\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\canbeignited\</OutputPath>
+    <OutputPath>$(ProjectDir)\bin</OutputPath>
     <IntermediateOutputPath>..\..\obj\Release\canbeignited\</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -41,23 +41,23 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="VintagestoryAPI">
-      <HintPath>M:\Vintagestory\VintagestoryAPI.dll</HintPath>
+      <HintPath>M:\VintagestoryVersions\Vintagestory-1.17.10\VintagestoryAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSSurvivalMod">
-      <HintPath>M:\Vintagestory\Mods\VSSurvivalMod.dll</HintPath>
+      <HintPath>M:\VintagestoryVersions\Vintagestory-1.17.10\Mods\VSSurvivalMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
-      <HintPath>M:\Vintagestory\Mods\VSEssentials.dll</HintPath>
+      <HintPath>M:\VintagestoryVersions\Vintagestory-1.17.10\Mods\VSEssentials.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSCreativeMod">
-      <HintPath>M:\Vintagestory\Mods\VSCreativeMod.dll</HintPath>
+      <HintPath>M:\VintagestoryVersions\Vintagestory-1.17.10\Mods\VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>M:\Vintagestory\Lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>M:\VintagestoryVersions\Vintagestory-1.17.10\Lib\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -67,13 +67,14 @@
   <ItemGroup>
     <Compile Include="src\BlockBehaviorCanBeIgnited.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="assets\canbeignited\patches\torchcanbeignited.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
+copy "$(TargetPath)" "$(ProjectDir)" 
+copy "$(TargetDir)\$(TargetName).pdb" "$(ProjectDir)" 
     </PostBuildEvent>
   </PropertyGroup>
 </Project>
