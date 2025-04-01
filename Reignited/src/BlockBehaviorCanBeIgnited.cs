@@ -1,6 +1,8 @@
 ﻿using System;
+using HarmonyLib;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -8,6 +10,86 @@ using Vintagestory.GameContent;
 
 namespace editjournal.src
 {
+
+    /**
+     * Seems to work fine for now, IIgnitable is annoying to hook into because Tyron checks the object as a cast instead of getting the interface and hard coded the item conversion
+     * 
+     * Block interface IIgnitable has 3 methods
+     * 1 - Stack for when a stack is being rubbed against it
+     * 2 - Block for when a burning thing is rubbing against the placed version
+     * 3 - And a method called when the block is finished being interacted with from a firestarter or CanIgnite block behavior
+     * 
+     * BlockBehaviorCanIgnite selects the <IIgnitable> through .GetBlock(blockSel.Position).GetInterface<IIgnitable>(byEntity.World, blockSel.Position);
+     */
+
+
+    //[HarmonyPatch]
+    //public class TorchPatches : ModSystem
+    //{
+    //    public static ICoreAPI api;
+    //    public Harmony harmony;
+
+    //    private static readonly string _harmonyID = "Soggylithe.Reignited.v1.2.0";
+
+    //    public override void Start(ICoreAPI api)
+    //    {
+    //        TorchPatches.api = api;
+
+    //        if (!Harmony.HasAnyPatches(_harmonyID))
+    //        {
+    //            harmony = new Harmony(_harmonyID);
+    //            harmony.PatchAll();
+    //        }
+
+    //        base.Start(api);
+    //    }
+
+    //    [HarmonyPrefix]
+    //    [HarmonyPatch(typeof(BlockTorch), nameof(BlockTorch.OnHeldInteractStart))]
+    //    public static bool OnStart(BlockTorch __instance, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
+    //    {
+    //        Traverse t = Traverse.Create(__instance);
+    //        bool isExtinct = t.Field<bool>("isExtinct").Value;
+
+    //        if (blockSel != null)
+    //        {
+    //            IIgnitable ign = byEntity.World.BlockAccessor.GetBlock(blockSel.Position) as IIgnitable;
+    //            if (ign != null)
+    //            {
+    //                EntityPlayer player = byEntity as EntityPlayer;
+    //                if (player != null && !byEntity.World.Claims.TryAccess(player.Player, blockSel.Position, EnumBlockAccessFlags.Use))
+    //                {
+    //                    return false;
+    //                }
+    //                if (isExtinct)
+    //                {
+    //                    if (ign.OnTryIgniteStack(byEntity, blockSel.Position, slot, 0f) == EnumIgniteState.Ignitable)
+    //                    {
+    //                        IWorldAccessor world = byEntity.World;
+    //                        AssetLocation location = new AssetLocation("sounds/torch-ignite");
+    //                        EntityPlayer entityPlayer = byEntity as EntityPlayer;
+    //                        world.PlaySoundAt(location, byEntity, (entityPlayer != null) ? entityPlayer.Player : null, false, 16f, 1f);
+    //                        handling = EnumHandHandling.PreventDefault;
+    //                        return false;
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    handling = EnumHandHandling.Handled;
+    //                }
+    //                return false;
+    //            }
+    //        }
+
+    //        return false;
+    //    }
+
+    //    public override void Dispose()
+    //    {
+    //        harmony?.UnpatchAll(_harmonyID);
+    //    }
+    //}
+
     class ModSystemCanBeIgnited : ModSystem
     {
         public static ICoreAPI _api;
@@ -38,7 +120,7 @@ namespace editjournal.src
             _domain = base.collObj.Code.Domain;
             _code = base.collObj.Code.Path;
 
-            if(properties.KeyExists("auto") && properties["auto"].AsBool() == true)
+            if (properties.KeyExists("auto") && properties["auto"].AsBool() == true)
             {
                 _code = _code.Replace("extinct", "lit");
             }
